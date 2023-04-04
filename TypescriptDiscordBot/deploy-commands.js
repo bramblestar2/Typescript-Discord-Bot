@@ -1,7 +1,7 @@
-import { REST, Routes } from 'discord.js';
-import { clientId, devGuildId, token } from './config.json';
-import fs from 'node:fs';
-import path from 'node:path';
+const { REST, Routes } = require('discord.js');
+const { clientId, devGuildId, token } = require('./config.json');
+const fs = require('node:fs');
+const path = require('node:path');
 
 
 const commands = [];
@@ -43,7 +43,7 @@ const rest = new REST({ version: '10' }).setToken(token);
 		//);
 
 		//Deploys the commands to all guilds
-		const data : any = await rest.put(
+		const data = await rest.put(
 			Routes.applicationCommands(clientId),
 			{ body: commands },
 		);

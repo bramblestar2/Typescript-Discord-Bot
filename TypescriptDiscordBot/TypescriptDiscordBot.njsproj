@@ -39,7 +39,7 @@
     <Content Include="commands\utility\reload.ts" />
     <Content Include="commands\utility\suggest.ts" />
     <Content Include="config.json" />
-    <Content Include="feature suggestions.json" />
+    <Content Include="suggestions.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="tsconfig.json" />
@@ -52,7 +52,7 @@
     <Folder Include="commands\utility\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="deploy-commands.ts" />
+    <TypeScriptCompile Include="deploy-commands.js" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>

@@ -41,7 +41,7 @@ module.exports = {
 			.setTimestamp()
 			.setFooter({
 				text: "Footer", iconURL: "https://i.imgur.com/AfFp7pu.png"
-			});
+		});
 
 		await interaction.reply({ embeds: [embed], components: [row] });
 	},

@@ -14,19 +14,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const node_fs_1 = __importDefault(require("node:fs"));
+const suggestions_json_1 = __importDefault(require("../../suggestions.json"));
 module.exports = {
     data: new discord_js_1.SlashCommandBuilder()
         .setName('suggest')
         .setDescription('Suggest a feature')
         .addStringOption(option => option.setName('type')
         .setDescription('The type of feature you are suggesting')
-        .setRequired(true))
+        .setRequired(true)
+        .addChoices({ name: "Fun", value: "fun" }, { name: "Moderation", value: 'moderation' }, { name: "Games", value: "games" }, { name: "Utility", value: "utility" }))
         .addStringOption(option => option.setName('idea')
         .setDescription('The description of the feature')
         .setRequired(true)),
     execute(interaction) {
         return __awaiter(this, void 0, void 0, function* () {
-            const suggestions = node_fs_1.default.readFileSync('./feature suggestions.json');
+            suggestions_json_1.default[interaction.options.getString('type')] = interaction.options.getString('idea');
+            node_fs_1.default.writeFileSync('./suggestions.json', JSON.stringify(suggestions_json_1.default));
             yield interaction.reply({
                 content: "The feature has been suggested! Thank you for the idea!",
                 ephemeral: true
