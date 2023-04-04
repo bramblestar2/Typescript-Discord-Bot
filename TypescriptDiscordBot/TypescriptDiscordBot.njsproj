@@ -38,6 +38,8 @@
     <Content Include="commands\moderation\kick.ts" />
     <Content Include="commands\utility\reload.ts" />
     <Content Include="commands\utility\suggest.ts" />
+    <Content Include="config.json" />
+    <Content Include="feature suggestions.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="tsconfig.json" />
@@ -48,6 +50,9 @@
     <Folder Include="commands\games\" />
     <Folder Include="commands\moderation\" />
     <Folder Include="commands\utility\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="deploy-commands.ts" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>
