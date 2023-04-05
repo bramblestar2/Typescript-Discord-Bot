@@ -68,10 +68,10 @@ client.on(discord_js_1.Events.InteractionCreate, (interaction) => __awaiter(void
         }
     }
 }));
-setInterval(() => {
-    const guilds = client.guilds.cache;
-    console.log("Guilds: (Size: " + guilds.size + ", [" + guilds.map(guild => guild.name).join(", ") + "])");
-}, 50000);
+//setInterval(() => {
+//	const guilds = client.guilds.cache;
+//	console.log("Guilds: (Size: " + guilds.size + ", [" + guilds.map(guild => guild.name).join(", ") + "])");
+//}, 100000);
 // Log in to Discord with your client's token
 client.login(config_json_1.token);
 //# sourceMappingURL=app.js.map

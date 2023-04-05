@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@types/node": "^18.15.11",
+    "cataas-api": "^1.1.2",
     "discord.js": "^14.9.0",
     "stream": "^0.0.2",
     "typescript": "^5.0.3"

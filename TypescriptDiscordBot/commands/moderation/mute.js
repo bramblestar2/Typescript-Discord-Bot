@@ -12,24 +12,35 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 module.exports = {
     data: new discord_js_1.SlashCommandBuilder()
-        .setName('kick')
-        .setDescription('Kick a user')
+        .setName('mute')
+        .setDescription('mute a user')
         .addUserOption(option => option.setName('target')
-        .setDescription('The user to kick from the server')
+        .setDescription('The user to mute from the server')
+        .setRequired(true))
+        .addIntegerOption(option => option.setName('duration')
+        .setDescription('The amount of seconds to mute the user.')
+        .setMinValue(1)
+        .setMaxValue(1000000000)
         .setRequired(true))
         .addStringOption(option => option.setName('reason')
-        .setDescription('Reason for the kick')
-        .setRequired(true))
-        .setDefaultMemberPermissions(discord_js_1.PermissionFlagsBits.KickMembers | discord_js_1.PermissionFlagsBits.BanMembers)
+        .setDescription('Reason for the mute'))
+        .setDefaultMemberPermissions(discord_js_1.PermissionFlagsBits.MuteMembers)
         .setDMPermission(false),
     execute(interaction) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            const target = interaction.options.getUser('target');
+            const target = interaction.options.getMember('target');
             const reason = (_a = interaction.options.getString('reason')) !== null && _a !== void 0 ? _a : 'No reason provided';
-            yield interaction.reply(`Kicking ${target.username} for reason: ${reason}`);
-            yield interaction.guild.members.kick(target);
+            const time = interaction.options.getInteger('duration');
+            const role = interaction.guild.roles.cache.find(role => role.name === "mute");
+            if (role && target) {
+                if (!target.roles.cache.find(role => role.name === "mute"))
+                    target.roles.add(role);
+                else
+                    return interaction.reply(`${target} is already muted`);
+            }
+            yield interaction.reply(`Muting ${target} for ${time} seconds\nreason: ${reason}`);
         });
     },
 };
-//# sourceMappingURL=kick.js.map
+//# sourceMappingURL=mute.js.map

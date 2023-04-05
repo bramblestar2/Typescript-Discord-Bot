@@ -30,6 +30,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="app.ts" />
+    <Content Include="commands\fun\cat.ts" />
     <Content Include="commands\fun\ping.ts" />
     <Content Include="commands\fun\repeat.ts" />
     <Content Include="commands\games\8ball.ts" />
@@ -52,6 +53,8 @@
     <Folder Include="commands\utility\" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="commands\moderation\mute.ts" />
+    <TypeScriptCompile Include="commands\moderation\unmute.ts" />
     <TypeScriptCompile Include="deploy-commands.js" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
