@@ -1,7 +1,7 @@
 // Require the necessary discord.js classes
 import fs from 'node:fs';
 import path from 'node:path';
-import { Client, Events, GatewayIntentBits, REST, Routes, Collection } from 'discord.js';
+import { Client, Events, GatewayIntentBits, REST, Routes, Collection, ActivityType } from 'discord.js';
 import { token, clientId } from './config.json';
 
 
@@ -42,6 +42,11 @@ for (const folder of commandFolders) {
 // We use 'c' for the event parameter to keep it separate from the already defined 'client'
 client.once(Events.ClientReady, c => {
 	console.log(`Ready! Logged in as ${c.user.tag}`);
+
+	client.user.setPresence({
+		activities: [{ name: 'my creators suffering', type: ActivityType.Watching }],
+		status: 'online'
+	});
 });
 
 
@@ -71,7 +76,7 @@ client.on(Events.InteractionCreate, async interaction => {
 setInterval(() => {
 	const guilds = client.guilds.cache;
 	console.log("Guilds: (Size: " + guilds.size + ", [" + guilds.map(guild => guild.name).join(", ") + "])");
-}, 50000);
+}, 100000);
 
 // Log in to Discord with your client's token
 client.login(token);

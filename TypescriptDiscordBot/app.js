@@ -42,6 +42,10 @@ for (const folder of commandFolders) {
 // We use 'c' for the event parameter to keep it separate from the already defined 'client'
 client.once(discord_js_1.Events.ClientReady, c => {
     console.log(`Ready! Logged in as ${c.user.tag}`);
+    client.user.setPresence({
+        activities: [{ name: 'my creators suffering', type: discord_js_1.ActivityType.Watching }],
+        status: 'online'
+    });
 });
 client.on(discord_js_1.Events.InteractionCreate, (interaction) => __awaiter(void 0, void 0, void 0, function* () {
     if (!interaction.isChatInputCommand())

@@ -1,1 +1,4 @@
-{"fun":"Guess a Number"}
+{
+  "fun": "Guess a Number",
+  "games": "Tic Tac Toe"
+}

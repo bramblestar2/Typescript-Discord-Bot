@@ -16,9 +16,13 @@ module.exports = {
         .setDescription('Replies with Pong!'),
     execute(interaction) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield interaction.reply({
-                content: "Pong!",
-                ephemeral: true,
+            const pong = yield interaction.reply({
+                content: `Pong! (0ms)`,
+                fetchReply: true
+            });
+            const ping = pong.createdTimestamp - interaction.createdTimestamp;
+            yield interaction.editReply({
+                content: `Pong! (${ping}ms)`
             });
         });
     },
