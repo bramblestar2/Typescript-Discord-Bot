@@ -48,9 +48,13 @@ module.exports = {
                 .setColor(0xAF009A)
                 .setAuthor({ name: `${interaction.user.tag}`, iconURL: `${interaction.user.displayAvatarURL()}` })
                 .setFields({ name: "User Question", value: `${userQuestion}` }, { name: "8Ball Answer", value: `${ball_responses[choice]}` });
-            yield interaction.reply({
+            const reply = yield interaction.reply({
                 embeds: [embed]
             });
+            setInterval(interval => {
+                interaction.deleteReply(reply);
+                clearInterval(interval);
+            }, 5000);
         });
     },
 };
