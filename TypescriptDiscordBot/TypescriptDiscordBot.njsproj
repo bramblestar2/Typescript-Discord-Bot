@@ -53,6 +53,7 @@
     <Folder Include="commands\utility\" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="commands\fun\hug.ts" />
     <TypeScriptCompile Include="commands\moderation\mute.ts" />
     <TypeScriptCompile Include="commands\moderation\unmute.ts" />
     <TypeScriptCompile Include="deploy-commands.js" />

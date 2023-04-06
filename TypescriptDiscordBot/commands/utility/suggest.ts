@@ -19,11 +19,19 @@ module.exports = {
 				))
 		.addStringOption(option =>
 			option.setName('idea')
+				.setDescription('The name of the feature')
+				.setRequired(true))
+		.addStringOption(option =>
+			option.setName('description')
 				.setDescription('The description of the feature')
-		.setRequired(true)),
+				.setRequired(true)),
 
 	async execute(interaction) {
-		suggestions[interaction.options.getString('type')] = interaction.options.getString('idea');
+		let type = interaction.options.getString('type');
+		let idea = interaction.options.getString('idea');
+		let description = interaction.options.getString('description');
+
+		suggestions[type][idea] = description;
 
 		fs.writeFileSync('./suggestions.json', JSON.stringify(suggestions));
 

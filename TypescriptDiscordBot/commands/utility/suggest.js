@@ -24,11 +24,17 @@ module.exports = {
         .setRequired(true)
         .addChoices({ name: "Fun", value: "fun" }, { name: "Moderation", value: 'moderation' }, { name: "Games", value: "games" }, { name: "Utility", value: "utility" }))
         .addStringOption(option => option.setName('idea')
+        .setDescription('The name of the feature')
+        .setRequired(true))
+        .addStringOption(option => option.setName('description')
         .setDescription('The description of the feature')
         .setRequired(true)),
     execute(interaction) {
         return __awaiter(this, void 0, void 0, function* () {
-            suggestions_json_1.default[interaction.options.getString('type')] = interaction.options.getString('idea');
+            let type = interaction.options.getString('type');
+            let idea = interaction.options.getString('idea');
+            let description = interaction.options.getString('description');
+            suggestions_json_1.default[type][idea] = description;
             node_fs_1.default.writeFileSync('./suggestions.json', JSON.stringify(suggestions_json_1.default));
             yield interaction.reply({
                 content: "The feature has been suggested! Thank you for the idea!",

@@ -8,12 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const cataas_api_1 = __importDefault(require("cataas-api"));
 module.exports = {
     data: new discord_js_1.SlashCommandBuilder()
         .setName('cat')
@@ -24,16 +20,12 @@ module.exports = {
         .setDescription('tags to use')),
     execute(interaction) {
         return __awaiter(this, void 0, void 0, function* () {
-            let website = 'https://cataas.com/c';
-            const cataas = new cataas_api_1.default();
-            const link = cataas.encodeById(interaction.createdTimestamp);
-            console.log(link);
             yield interaction.reply({
                 embeds: [
                     {
                         title: "Cataas",
                         image: {
-                            url: link.href
+                            url: 'https://cataas.com/c'
                         }
                     }
                 ]

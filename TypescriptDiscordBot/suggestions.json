@@ -1,1 +1,11 @@
-{"fun":"Guess a Number","games":"Tic Tac Toe","moderation":"Mute people"}
+{
+  "fun": {
+    "Guess the number": "The user has to guess a number between a min and max value, if the random number is the same as the users, the user wins"
+  },
+  "moderation": {
+  },
+  "games": {
+  },
+  "utility": {
+  }
+}
