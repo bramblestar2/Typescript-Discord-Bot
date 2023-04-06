@@ -363,3 +363,12 @@ MigrationBackup/
 FodyWeavers.xsd
 /TypescriptDiscordBot/config.json
 /TypescriptDiscordBot/config.json
+/TypescriptDiscordBot/commands/games/8ball.js.map
+/TypescriptDiscordBot/commands/moderation/admin.js
+/TypescriptDiscordBot/commands/games/8ball.js
+/TypescriptDiscordBot/commands/fun/hug.js
+/TypescriptDiscordBot/commands/fun/cat.js
+/TypescriptDiscordBot/commands/fun/boop.js.map
+/TypescriptDiscordBot/commands/fun/boop.js
+/TypescriptDiscordBot/components/cat/generatecatimage.js
+/TypescriptDiscordBot/app.js
