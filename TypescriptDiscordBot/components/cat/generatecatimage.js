@@ -11,23 +11,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 module.exports = {
-    data: new discord_js_1.SlashCommandBuilder()
-        .setName('cat')
-        .setDescription('gets a random cat image')
-        .addStringOption(option => option.setName('text')
-        .setDescription('Text to be overlayed on the image'))
-        .addStringOption(option => option.setName('tag')
-        .setDescription('tags to use')),
+    data: { "customId": "generatecatimage" },
     execute(interaction) {
         return __awaiter(this, void 0, void 0, function* () {
-            const text = interaction.options.getString('text');
-            let tag = interaction.options.getString('tag');
+            const embedArray = interaction.message.embeds;
+            const fields = embedArray[0].data.fields;
+            let text;
+            let tag;
+            if (fields) {
+                text = fields.find(element => element.name == "Text");
+                tag = fields.find(element => element.name == "Tag");
+            }
             const baseURL = "https://cataas.com/";
             let extra = "cat";
             if (tag)
-                extra += `/${tag}`;
+                extra += `/${tag.value.toLowerCase()}`;
             if (text)
-                extra += `/says/${text}`;
+                extra += `/says/${text.value.toLowerCase()}`;
             extra += "?json=true";
             const response = yield fetch(`${baseURL}${extra}`, {
                 method: 'GET',
@@ -45,18 +45,17 @@ module.exports = {
                 name: `${interaction.user.tag}`, iconURL: `${interaction.user.displayAvatarURL()}`
             });
             if (text)
-                embed.addFields({ name: "Text", value: `${text}`, inline: true });
+                embed.addFields({ name: "Text", value: `${text.value}`, inline: true });
             if (tag)
-                embed.addFields({ name: "Tag", value: `${tag}`, inline: true });
-            const row = new discord_js_1.ActionRowBuilder().addComponents(new discord_js_1.ButtonBuilder()
-                .setCustomId('generatecatimage')
-                .setStyle(discord_js_1.ButtonStyle.Primary)
-                .setLabel('Generate'));
+                embed.addFields({ name: "Tag", value: `${tag.value}`, inline: true });
+            yield interaction.message.edit({
+                embeds: [embed]
+            });
             yield interaction.reply({
-                embeds: [embed],
-                components: [row]
+                content: "A new cat image has been generated!",
+                ephemeral: true
             });
         });
     },
 };
-//# sourceMappingURL=cat.js.map
+//# sourceMappingURL=generatecatimage.js.map

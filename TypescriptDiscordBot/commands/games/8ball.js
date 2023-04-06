@@ -19,7 +19,7 @@ module.exports = {
         .setRequired(true)),
     execute(interaction) {
         return __awaiter(this, void 0, void 0, function* () {
-            var response = `Users question: ${interaction.options.getString('question', true)}`;
+            let userQuestion = `${interaction.options.getString('question', true)}`;
             const ball_responses = [
                 "It is certain				",
                 "It is decidedly so			",
@@ -43,8 +43,14 @@ module.exports = {
                 "Very doubtful				",
             ];
             const choice = Math.floor(Math.random() * ball_responses.length);
-            response += `\n8ball response: ${ball_responses[choice]}.`;
-            yield interaction.reply(response);
+            const embed = new discord_js_1.EmbedBuilder()
+                .setTitle("8Ball")
+                .setColor(0xAF009A)
+                .setAuthor({ name: `${interaction.user.tag}`, iconURL: `${interaction.user.displayAvatarURL()}` })
+                .setFields({ name: "User Question", value: `${userQuestion}` }, { name: "8Ball Answer", value: `${ball_responses[choice]}` });
+            yield interaction.reply({
+                embeds: [embed]
+            });
         });
     },
 };

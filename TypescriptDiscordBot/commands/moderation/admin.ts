@@ -15,7 +15,6 @@ module.exports = {
 					.setLabel('Label')
 					.setStyle(ButtonStyle.Primary),
 				new ButtonBuilder()
-					.setCustomId('link')
 					.setLabel('Label')
 					.setStyle(ButtonStyle.Link)
 					.setURL('https://www.youtube.com/c/jayfeather2000'),

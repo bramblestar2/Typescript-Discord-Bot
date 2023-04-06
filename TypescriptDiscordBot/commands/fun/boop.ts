@@ -1,15 +1,15 @@
-import { getRandomValues, randomInt } from 'crypto';
+import { randomInt } from 'crypto';
 import { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } from 'discord.js';
-import config from "../../config.json"
+import config from '../../config.json'
 import { furry } from "../../apis.json"
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('hug')
-		.setDescription('Hug someone!')
+		.setName('boop')
+		.setDescription('Boop someone!')
 		.addUserOption(option =>
 			option.setName('user')
-				.setDescription('The user you will be hugging!')
+				.setDescription('The user you will be booping!')
 				.setRequired(true)
 	)
 		.setDMPermission(false),
@@ -19,7 +19,7 @@ module.exports = {
 		const user = interaction.user;
 
 		if (huggedUser.id != config.clientId) {
-			const response = await fetch(`${furry}/posts.json?tags=hug+-cuddling+-comic&limit=50&page=10`, {
+			const response = await fetch(`${furry}/posts.json?tags=boop+-nose_boop+-comic&limit=50&page=10`, {
 				method: 'GET',
 				headers: {
 					Accept: "application/json"
@@ -33,8 +33,8 @@ module.exports = {
 					name: `${user.tag}`, iconURL: `${user.displayAvatarURL()}`
 				})
 				.setColor(0x0015F0)
-				.setTitle('Hug!')
-				.setDescription(`${user} has hugged ${huggedUser}!`)
+				.setTitle('Boop!')
+				.setDescription(`${user} has booped ${huggedUser}!`)
 				.setThumbnail(`${huggedUser.displayAvatarURL()}`)
 				.setImage(`${apiResponse["posts"][randomInt(0, apiResponse["posts"].length - 1)]["file"]["url"]}`);
 
@@ -44,7 +44,7 @@ module.exports = {
 		}
 		else {
 			await interaction.reply({
-				content: "Thank you for offering the hug, but I think someone else might need it!",
+				content: "H-hey! Why are you trying to boop me?! Go boop someone else!",
 				ephemeral: true
 			});
 		}

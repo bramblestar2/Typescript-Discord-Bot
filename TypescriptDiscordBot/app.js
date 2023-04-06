@@ -20,6 +20,7 @@ const config_json_1 = require("./config.json");
 // Create a new client instance
 const client = new discord_js_1.Client({ intents: [discord_js_1.GatewayIntentBits.Guilds] });
 client.commands = new discord_js_1.Collection();
+client.components = new discord_js_1.Collection();
 const rest = new discord_js_1.REST({ version: '10' }).setToken(config_json_1.token);
 const foldersPath = node_path_1.default.join(__dirname, 'commands');
 const commandFolders = node_fs_1.default.readdirSync(foldersPath);
@@ -38,6 +39,22 @@ for (const folder of commandFolders) {
         }
     }
 }
+const componentFolderPath = node_path_1.default.join(__dirname, 'components');
+const componentFolders = node_fs_1.default.readdirSync(componentFolderPath);
+for (const folder of componentFolders) {
+    const componentsPath = node_path_1.default.join(componentFolderPath, folder);
+    const componentFiles = node_fs_1.default.readdirSync(componentsPath).filter(file => file.endsWith('.js'));
+    for (const file of componentFiles) {
+        const filePath = node_path_1.default.join(componentsPath, file);
+        const component = require(filePath);
+        if ('execute' in component) {
+            client.components.set(component.data.customId, component);
+        }
+        else {
+            console.log(`[WARNING] The component at ${filePath} is missing a required "execute" property.`);
+        }
+    }
+}
 // When the client is ready, run this code (only once)
 // We use 'c' for the event parameter to keep it separate from the already defined 'client'
 client.once(discord_js_1.Events.ClientReady, c => {
@@ -48,23 +65,42 @@ client.once(discord_js_1.Events.ClientReady, c => {
     });
 });
 client.on(discord_js_1.Events.InteractionCreate, (interaction) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!interaction.isChatInputCommand())
-        return;
-    const command = interaction.client.commands.get(interaction.commandName);
-    if (!command) {
-        console.error(`No command matching ${interaction.commandName} was found.`);
-        return;
-    }
-    try {
-        yield command.execute(interaction);
-    }
-    catch (error) {
-        console.error(error);
-        if (interaction.replied || interaction.deferred) {
-            yield interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
+    if (interaction.isChatInputCommand()) {
+        const command = interaction.client.commands.get(interaction.commandName);
+        if (!command) {
+            console.error(`No command matching ${interaction.commandName} was found.`);
+            return;
         }
-        else {
-            yield interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+        try {
+            yield command.execute(interaction);
+        }
+        catch (error) {
+            console.error(error);
+            if (interaction.replied || interaction.deferred) {
+                yield interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
+            }
+            else {
+                yield interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+            }
+        }
+    }
+    else if (interaction.isButton()) {
+        const component = interaction.client.components.get(interaction.customId);
+        if (!component) {
+            console.error(`No command matching ${interaction.customId} was found.`);
+            return;
+        }
+        try {
+            yield component.execute(interaction);
+        }
+        catch (error) {
+            console.error(error);
+            if (interaction.replied || interaction.deferred) {
+                yield interaction.followUp({ content: 'There was an error while executing this component!', ephemeral: true });
+            }
+            else {
+                yield interaction.reply({ content: 'There was an error while executing this component!', ephemeral: true });
+            }
         }
     }
 }));

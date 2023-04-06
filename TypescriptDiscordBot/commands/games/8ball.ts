@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from 'discord.js'
+import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -9,7 +9,7 @@ module.exports = {
 				.setDescription("The question you're asking the magic 8Ball")
 				.setRequired(true)),
 	async execute(interaction) {
-		var response = `Users question: ${interaction.options.getString('question', true)}`;
+		let userQuestion = `${interaction.options.getString('question', true)}`
 
 		const ball_responses = [			
 			"It is certain				",
@@ -35,8 +35,18 @@ module.exports = {
 		];
 
 		const choice = Math.floor(Math.random() * ball_responses.length);
-		response += `\n8ball response: ${ball_responses[choice]}.`;
 
-		await interaction.reply(response);
+		const embed = new EmbedBuilder()
+			.setTitle("8Ball")
+			.setColor(0xAF009A)
+			.setAuthor({ name: `${interaction.user.tag}`, iconURL: `${interaction.user.displayAvatarURL()}` })
+			.setFields(
+				{ name: "User Question", value: `${userQuestion}` },
+				{ name: "8Ball Answer", value: `${ball_responses[choice]}` }
+			);
+
+		await interaction.reply({
+			embeds: [embed]
+		});
 	},
 };

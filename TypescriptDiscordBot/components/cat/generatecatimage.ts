@@ -3,27 +3,28 @@ import Cataas from 'cataas-api';
 
 
 module.exports = {
-	data: new SlashCommandBuilder()
-		.setName('cat')
-		.setDescription('gets a random cat image')
-		.addStringOption(option =>
-			option.setName('text')
-				.setDescription('Text to be overlayed on the image'))
-		.addStringOption(option =>
-			option.setName('tag')
-				.setDescription('tags to use')),
+	data: { "customId": "generatecatimage" },
 
 	async execute(interaction) {
-		const text : String = interaction.options.getString('text');
-		let tag : String = interaction.options.getString('tag');
-		
+		const embedArray : Array<EmbedBuilder> = interaction.message.embeds;
+
+		const fields = embedArray[0].data.fields;
+
+		let text;
+		let tag;
+
+		if (fields) {
+			text = fields.find(element => element.name == "Text");
+			tag = fields.find(element => element.name == "Tag");
+		}
+
 		const baseURL = "https://cataas.com/"
 		let extra = "cat";
 
 		if (tag)
-			extra += `/${tag}`;
+			extra += `/${tag.value.toLowerCase()}`;
 		if (text)
-			extra += `/says/${text}`
+			extra += `/says/${text.value.toLowerCase()}`
 
 		extra += "?json=true";
 
@@ -46,20 +47,18 @@ module.exports = {
 			});
 
 		if (text)
-			embed.addFields({ name: "Text", value: `${text}`, inline: true });
+			embed.addFields({ name: "Text", value: `${text.value}`, inline: true });
 		if (tag)
-			embed.addFields({ name: "Tag", value: `${tag}`, inline: true });
+			embed.addFields({ name: "Tag", value: `${tag.value}`, inline: true });
 
-		const row = new ActionRowBuilder().addComponents(
-			new ButtonBuilder()
-				.setCustomId('generatecatimage')
-				.setStyle(ButtonStyle.Primary)
-				.setLabel('Generate'),
-		);
+		
+		await interaction.message.edit({
+			embeds: [embed]
+		})
 
 		await interaction.reply({
-			embeds: [embed],
-			components: [row]
+			content: "A new cat image has been generated!",
+			ephemeral: true
 		})
 	},
 };

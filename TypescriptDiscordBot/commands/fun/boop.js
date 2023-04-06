@@ -18,10 +18,10 @@ const config_json_1 = __importDefault(require("../../config.json"));
 const apis_json_1 = require("../../apis.json");
 module.exports = {
     data: new discord_js_1.SlashCommandBuilder()
-        .setName('hug')
-        .setDescription('Hug someone!')
+        .setName('boop')
+        .setDescription('Boop someone!')
         .addUserOption(option => option.setName('user')
-        .setDescription('The user you will be hugging!')
+        .setDescription('The user you will be booping!')
         .setRequired(true))
         .setDMPermission(false),
     execute(interaction) {
@@ -29,7 +29,7 @@ module.exports = {
             const huggedUser = interaction.options.getUser('user');
             const user = interaction.user;
             if (huggedUser.id != config_json_1.default.clientId) {
-                const response = yield fetch(`${apis_json_1.furry}/posts.json?tags=hug+-cuddling+-comic&limit=50&page=10`, {
+                const response = yield fetch(`${apis_json_1.furry}/posts.json?tags=boop+-nose_boop+-comic&limit=50&page=10`, {
                     method: 'GET',
                     headers: {
                         Accept: "application/json"
@@ -41,8 +41,8 @@ module.exports = {
                     name: `${user.tag}`, iconURL: `${user.displayAvatarURL()}`
                 })
                     .setColor(0x0015F0)
-                    .setTitle('Hug!')
-                    .setDescription(`${user} has hugged ${huggedUser}!`)
+                    .setTitle('Boop!')
+                    .setDescription(`${user} has booped ${huggedUser}!`)
                     .setThumbnail(`${huggedUser.displayAvatarURL()}`)
                     .setImage(`${apiResponse["posts"][(0, crypto_1.randomInt)(0, apiResponse["posts"].length - 1)]["file"]["url"]}`);
                 yield interaction.reply({
@@ -51,11 +51,11 @@ module.exports = {
             }
             else {
                 yield interaction.reply({
-                    content: "Thank you for offering the hug, but I think someone else might need it!",
+                    content: "H-hey! Why are you trying to boop me?! Go boop someone else!",
                     ephemeral: true
                 });
             }
         });
     },
 };
-//# sourceMappingURL=hug.js.map
+//# sourceMappingURL=boop.js.map

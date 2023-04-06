@@ -23,7 +23,6 @@ module.exports = {
                 .setCustomId('primary')
                 .setLabel('Label')
                 .setStyle(discord_js_1.ButtonStyle.Primary), new discord_js_1.ButtonBuilder()
-                .setCustomId('link')
                 .setLabel('Label')
                 .setStyle(discord_js_1.ButtonStyle.Link)
                 .setURL('https://www.youtube.com/c/jayfeather2000'));
