@@ -366,3 +366,4 @@ FodyWeavers.xsd
 
 *.js
 *.js.map
+/TypescriptDiscordBot/config.json
