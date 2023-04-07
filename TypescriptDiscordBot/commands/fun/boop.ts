@@ -19,7 +19,7 @@ module.exports = {
 		const user = interaction.user;
 
 		if (huggedUser.id != config.clientId) {
-			const response = await fetch(`${furry}/posts.json?tags=boop+-nose_boop+-comic&limit=50&page=10`, {
+			const response = await fetch(`${furry}/posts.json?tags=boop+-nose_boop+-comic&limit=50&page=3`, {
 				method: 'GET',
 				headers: {
 					Accept: "application/json"
@@ -27,6 +27,8 @@ module.exports = {
 			});
 
 			const apiResponse = await response.json();
+
+			const randomNum = randomInt(0, apiResponse["posts"].length - 1);
 
 			const embed = new EmbedBuilder()
 				.setAuthor({
@@ -36,7 +38,7 @@ module.exports = {
 				.setTitle('Boop!')
 				.setDescription(`${user} has booped ${huggedUser}!`)
 				.setThumbnail(`${huggedUser.displayAvatarURL()}`)
-				.setImage(`${apiResponse["posts"][randomInt(0, apiResponse["posts"].length - 1)]["file"]["url"]}`);
+				.setImage(`${apiResponse["posts"][randomNum]["file"]["url"]}`);
 
 			await interaction.reply({
 				embeds: [embed]
