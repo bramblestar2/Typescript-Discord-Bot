@@ -19,14 +19,12 @@ module.exports = {
 		const user = interaction.user;
 
 		if (huggedUser.id != config.clientId) {
-			const response = await fetch(`${furry}/posts.json?tags=boop+-nose_boop+-comic&limit=50&page=3`, {
+			const response = await fetch(`${furry}/posts.json?tags=boop+-nose_boop+-comic+-human&limit=50&page=3`, {
 				method: 'GET',
 				headers: {
 					Accept: "application/json"
 				}
 			});
-
-			console.log(response);
 
 			let apiResponse;
 
@@ -43,9 +41,7 @@ module.exports = {
 				.setThumbnail(`${huggedUser.displayAvatarURL()}`);
 
 			if (response.ok)
-				embed.addFields(
-					{ name: "Image", value: "" }
-				).setImage(`${apiResponse["posts"][randomInt(0, apiResponse["posts"].length - 1)]["file"]["url"]}`);
+				embed.setImage(`${apiResponse["posts"][randomInt(0, apiResponse["posts"].length - 1)]["file"]["url"]}`);
 			else {
 				embed.addFields(
 					{ name: "Image", value: "The website that i get the images from is currently down! Sorry!" }
