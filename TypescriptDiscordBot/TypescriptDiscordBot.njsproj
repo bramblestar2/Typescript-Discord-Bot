@@ -51,13 +51,16 @@
     <Folder Include="commands\fun\" />
     <Folder Include="commands\games\" />
     <Folder Include="commands\moderation\" />
+    <Folder Include="commands\furry\" />
     <Folder Include="commands\utility\" />
     <Folder Include="components\" />
     <Folder Include="components\cat\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="commands\fun\boop.ts" />
-    <TypeScriptCompile Include="commands\fun\hug.ts" />
+    <TypeScriptCompile Include="commands\furry\boop.ts" />
+    <TypeScriptCompile Include="commands\furry\cuddle.ts" />
+    <TypeScriptCompile Include="commands\furry\hug.ts" />
+    <TypeScriptCompile Include="commands\furry\nuzzle.ts" />
     <TypeScriptCompile Include="commands\moderation\mute.ts" />
     <TypeScriptCompile Include="commands\moderation\unmute.ts" />
     <TypeScriptCompile Include="components\cat\generatecatimage.ts" />

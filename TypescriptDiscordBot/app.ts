@@ -69,7 +69,6 @@ client.once(Events.ClientReady, c => {
 	});
 });
 
-
 client.on(Events.InteractionCreate, async interaction => {
 	if (interaction.isChatInputCommand()) {
 		const command = interaction.client.commands.get(interaction.commandName);
@@ -112,10 +111,4 @@ client.on(Events.InteractionCreate, async interaction => {
 
 });
 
-//setInterval(() => {
-//	const guilds = client.guilds.cache;
-//	console.log("Guilds: (Size: " + guilds.size + ", [" + guilds.map(guild => guild.name).join(", ") + "])");
-//}, 100000);
-
-// Log in to Discord with your client's token
 client.login(token);

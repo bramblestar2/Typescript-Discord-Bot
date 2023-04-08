@@ -60,7 +60,5 @@ module.exports = {
 			content: "A new cat image has been generated!",
 			ephemeral: true
 		})
-
-
 	},
 };

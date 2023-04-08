@@ -19,24 +19,37 @@ module.exports = {
 		const user = interaction.user;
 
 		if (huggedUser.id != config.clientId) {
-			const response = await fetch(`${furry}/posts.json?tags=hug+-cuddling+-comic&limit=50&page=10`, {
+			const response = await fetch(`${furry}/posts.json?tags=hug+-comic&limit=50&page=10`, {
 				method: 'GET',
 				headers: {
 					Accept: "application/json"
 				}
 			});
 
-			const apiResponse = await response.json();
+			let apiResponse;
 
-			const embed = new EmbedBuilder()
+			if (response.ok)
+				apiResponse = await response.json();
+
+			let embed = new EmbedBuilder()
 				.setAuthor({
 					name: `${user.tag}`, iconURL: `${user.displayAvatarURL()}`
 				})
 				.setColor(0x0015F0)
 				.setTitle('Hug!')
 				.setDescription(`${user} has hugged ${huggedUser}!`)
-				.setThumbnail(`${huggedUser.displayAvatarURL()}`)
-				.setImage(`${apiResponse["posts"][randomInt(0, apiResponse["posts"].length - 1)]["file"]["url"]}`);
+				.setThumbnail(`${huggedUser.displayAvatarURL()}`);
+
+			if (response.ok)
+				embed.addFields(
+					{ name: "Image", value: "" }
+				)
+					.setImage(`${apiResponse["posts"][randomInt(0, apiResponse["posts"].length - 1)]["file"]["url"]}`);
+			else {
+				embed.addFields(
+					{ name: "Image", value: "The website that i get the images from is currently down! Sorry!" }
+				);
+			}
 
 			await interaction.reply({
 				embeds: [embed]
